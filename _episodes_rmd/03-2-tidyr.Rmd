@@ -17,8 +17,6 @@ source: Rmd
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
 knitr_fig_path("03-2-")
-# Silently load in the data so the rest of the lesson works
-gapminder <- read.csv("data/gapminder_data.csv", header = TRUE, stringsAsFactors = FALSE)
 
 # To create gapminder_wide.csv:
 # library("dplyr")
@@ -34,9 +32,6 @@ gapminder <- read.csv("data/gapminder_data.csv", header = TRUE, stringsAsFactors
 #
 # #write our the .csv so students can use it
 # write.csv(gap_wide_betterID,"data/gapminder_wide.csv",row.names = FALSE)
-
-#load the "student" data
-gap_wide <- read.csv("data/gapminder_wide.csv", header = TRUE, stringsAsFactors = FALSE)
 ```
 
 Researchers often want to manipulate their data from the 'wide' to the 'long'
@@ -82,9 +77,10 @@ library("tidyr")
 library("dplyr")
 ```
 
-First, lets look at the structure of our original gapminder dataframe:
+First, lets reset our data again and look at the structure of our original gapminder dataframe:
 
 ```{r}
+gapminder <- read.csv("data/gapminder_data.csv", header = TRUE, stringsAsFactors = FALSE)
 str(gapminder)
 ```
 
