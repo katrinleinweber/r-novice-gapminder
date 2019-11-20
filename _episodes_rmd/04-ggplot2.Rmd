@@ -311,13 +311,13 @@ by adding a layer of **facet** panels.
 americas <- gapminder[gapminder$continent == "Americas",]
 ggplot(data = americas, mapping = aes(x = year, y = lifeExp)) +
   geom_line() +
-  facet_wrap( ~ country) +
+  facet_wrap(vars(country)) +
   theme(axis.text.x = element_text(angle = 45))
 ```
 
-The `facet_wrap` layer took a "formula" as its argument, denoted by the tilde
-(~). This tells R to draw a panel for each unique value in the country column
-of the gapminder dataset.
+The `facet_wrap` layer took a `vars()` function as its argument. It tells R to draw a panel for each unique value in the `country` variable
+of the gapminder dataset. You will also encounter [older code](https://www.tidyverse.org/blog/2018/07/ggplot2-3-0-0/#tidy-evaluation)
+that still uses a "formula"-based syntax with `~`.
 
 ## Modifying text
 
