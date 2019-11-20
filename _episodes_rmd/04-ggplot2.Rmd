@@ -97,7 +97,8 @@ ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
 > > ## Solution
 > >
 > > ```{r ch1-sol}
-> > ggplot(gapminder, aes(x = year, y = lifeExp)) + geom_point()
+> > ggplot(gapminder, aes(x = year, y = lifeExp)) +
+> > geom_point()
 > > ```
 > >
 > {: .solution}
@@ -134,7 +135,7 @@ Using a scatterplot probably isn't the best for visualizing change over time.
 Instead, let's tell `ggplot` to visualize the data as a line plot:
 
 ```{r lifeExp-line}
-ggplot(data = gapminder, mapping = aes(x=year, y=lifeExp, by=country, color=continent)) +
+ggplot(data = gapminder, mapping = aes(x = year, y = lifeExp, by = country, color = continent)) +
   geom_line()
 ```
 
@@ -146,8 +147,9 @@ But what if we want to visualize both lines and points on the plot? We can
 simply add another layer to the plot:
 
 ```{r lifeExp-line-point}
-ggplot(data = gapminder, mapping = aes(x=year, y=lifeExp, by=country, color=continent)) +
-  geom_line() + geom_point()
+ggplot(data = gapminder, mapping = aes(x = year, y = lifeExp, by = country, color = continent)) +
+  geom_line() +
+  geom_point()
 ```
 
 It's important to note that each layer is drawn on top of the previous layer. In
@@ -155,8 +157,9 @@ this example, the points have been drawn *on top of* the lines. Here's a
 demonstration:
 
 ```{r lifeExp-layer-example-1}
-ggplot(data = gapminder, mapping = aes(x=year, y=lifeExp, by=country)) +
-  geom_line(mapping = aes(color=continent)) + geom_point()
+ggplot(data = gapminder, mapping = aes(x = year, y = lifeExp, by = country)) +
+  geom_line(mapping = aes(color = continent)) +
+  geom_point()
 ```
 
 In this example, the *aesthetic* mapping of **color** has been moved from the
@@ -179,8 +182,9 @@ lines.
 > > The lines now get drawn over the points!
 > >
 > > ```{r ch3-sol}
-> > ggplot(data = gapminder, mapping = aes(x=year, y=lifeExp, by=country)) +
-> >  geom_point() + geom_line(mapping = aes(color=continent))
+> > ggplot(data = gapminder, mapping = aes(x = year, y = lifeExp, by = country)) +
+> >  geom_point() +
+> >  geom_line(mapping = aes(color = continent))
 > > ```
 > >
 > >
@@ -206,7 +210,8 @@ a large amount of data which is very clustered.
 
 ```{r axis-scale}
 ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
-  geom_point(alpha = 0.5) + scale_x_log10()
+  geom_point(alpha = 0.5) +
+  scale_x_log10()
 ```
 
 The `log10` function applied a transformation to the values of the gdpPercap
@@ -226,7 +231,9 @@ We can fit a simple relationship to the data by adding another layer,
 
 ```{r lm-fit}
 ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
-  geom_point() + scale_x_log10() + geom_smooth(method="lm")
+  geom_point() +
+  scale_x_log10() +
+  geom_smooth(method = "lm")
 ```
 
 We can make the line thicker by *setting* the **size** aesthetic in the
@@ -234,7 +241,9 @@ We can make the line thicker by *setting* the **size** aesthetic in the
 
 ```{r lm-fit2}
 ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
-  geom_point() + scale_x_log10() + geom_smooth(method="lm", size=1.5)
+  geom_point() +
+  scale_x_log10() +
+  geom_smooth(method = "lm", size = 1.5)
 ```
 
 There are two ways an *aesthetic* can be specified. Here we *set* the **size**
@@ -255,8 +264,9 @@ variables and their visual representation.
 > >
 > > ```{r ch4a-sol}
 > > ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
-> >  geom_point(size=3, color="orange") + scale_x_log10() +
-> >  geom_smooth(method="lm", size=1.5)
+> >  geom_point(size = 3, color = "orange") +
+> >  scale_x_log10() +
+> >  geom_smooth(method = "lm", size = 1.5)
 > > ```
 > {: .solution}
 {: .challenge}
@@ -274,8 +284,9 @@ variables and their visual representation.
 > >
 > >```{r ch4b-sol}
 > > ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp, color = continent)) +
-> > geom_point(size=3, shape=17) + scale_x_log10() +
-> > geom_smooth(method="lm", size=1.5)
+> > geom_point(size = 3, shape = 17) +
+> > scale_x_log10() +
+> > geom_smooth(method = "lm", size = 1.5)
 > > ```
 > {: .solution}
 {: .challenge}
@@ -322,8 +333,9 @@ the color legend title is set using `color = "Continent"`, while the title
 of a fill legend would be set using `fill = "MyTitle"`.
 
 ```{r theme}
-ggplot(data = americas, mapping = aes(x = year, y = lifeExp, color=continent)) +
-  geom_line() + facet_wrap( ~ country) +
+ggplot(data = americas, mapping = aes(x = year, y = lifeExp, color = continent)) +
+  geom_line() +
+  facet_wrap(vars(country)) +
   labs(
     x = "Year",              # x axis title
     y = "Life expectancy",   # y axis title
@@ -345,8 +357,9 @@ if (!dir.exists("results")) {
 ```
 
 ```{r save}
-lifeExp_plot <- ggplot(data = americas, mapping = aes(x = year, y = lifeExp, color=continent)) +
-  geom_line() + facet_wrap( ~ country) +
+lifeExp_plot <- ggplot(data = americas, mapping = aes(x = year, y = lifeExp, color = continent)) +
+  geom_line() +
+  facet_wrap(vars(country)) +
   labs(
     x = "Year",              # x axis title
     y = "Life expectancy",   # y axis title
@@ -384,8 +397,10 @@ code to modify!
 > > Here a possible solution: 
 > >
 > > ```{r ch5-sol}
-> > ggplot(data = gapminder, mapping = aes(x = gdpPercap, fill=continent)) +
-> >  geom_density(alpha=0.6) + facet_wrap( ~ year) + scale_x_log10()
+> > ggplot(data = gapminder, mapping = aes(x = gdpPercap, fill = continent)) +
+> >  geom_density(alpha = 0.6) +
+> > facet_wrap(vars(year)) +
+> > scale_x_log10()
 > > ```
 > {: .solution}
 {: .challenge}
