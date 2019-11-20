@@ -172,8 +172,8 @@ demonstration:
 
 ```{r lifeExp-layer-example-1}
 ggplot(data = gapminder, mapping = aes(x = year, y = lifeExp, by = country)) +
-  geom_line(mapping = aes(color = continent)) +
-  geom_point()
+  geom_point() +
+  geom_line(mapping = aes(color = continent))
 ```
 
 In this example, the *aesthetic* mapping of **color** has been moved from the
