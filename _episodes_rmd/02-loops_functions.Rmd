@@ -1,0 +1,30 @@
+---
+title: loops and functions
+teaching: 40
+exercises: 50
+questions:
+- "How can I iterate over (specific) tasks?"
+- "How can I write a new function in R?"
+- "What tools does R provide to debug my code?"
+objectives:
+- "Write a for loop in R to iterate code"
+- "Use a for loop for basic plotting (examaple)"
+- "Advantages of (l)apply"
+- "Define a function that takes arguments."
+- "Return a value from a function."
+- "Check argument conditions with `stop` or `stopifnot` in functions."
+- "Apply several debugging tools to a function"
+
+keypoints:
+- "Use `for` to write a loop." 
+- "Use `function` to define a new function in R."
+- "Use parameters to pass values into functions."
+- "Use `stop` or `stopifnot()` to flexibly check function arguments in R."
+- "Use `traceback`, `options(error=recover)` and other debugging options." 
+source: Rmd
+---
+
+*Please note that the presentation/handout is provided as loopFun.pdf together with the belonging data in ../data*
+
+
+**Further information & material is provided at** https://github.com/brry/loopfun 
