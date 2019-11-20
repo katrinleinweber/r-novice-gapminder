@@ -88,22 +88,16 @@ ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
 
 > ## Challenge 1
 >
-> Modify the example so that the figure shows how life expectancy has
-> changed over time:
+> Modify the above example so that the figure shows how life expectancy has
+> changed over time.
 >
-> ```{r, eval=FALSE}
-> ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + geom_point()
-> ```
->
-> Hint: the gapminder dataset has a column called "year", which should appear
+> Hint: use `names(gapminder)` or `str(gapminder)` to find a time-related variable to plot
 > on the x-axis.
 >
-> > ## Solution to challenge 1
-> >
-> > Here is one possible solution:
+> > ## Solution
 > >
 > > ```{r ch1-sol}
-> > ggplot(data = gapminder, mapping = aes(x = year, y = lifeExp)) + geom_point()
+> > ggplot(gapminder, aes(x = year, y = lifeExp)) + geom_point()
 > > ```
 > >
 > {: .solution}
@@ -118,15 +112,15 @@ ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
 > code from the previous challenge to **color** the points by the "continent"
 > column. What trends do you see in the data? Are they what you expected?
 >
-> > ## Solution to challenge 2
+> > ## Solution
 > >
-> > The solution presented below adds `color=continent` to the call of the `aes`
+> > The solution presented below adds `color = continent` to the call of the `aes`
 > > function. The general trend seems to indicate an increased life expectancy
 > > over the years. On continents with stronger economies we find a longer life
 > > expectancy.
 > >
 > > ```{r ch2-sol}
-> > ggplot(data = gapminder, mapping = aes(x = year, y = lifeExp, color=continent)) +
+> > ggplot(gapminder, aes(year, lifeExp, color = continent)) +
 > >   geom_point()
 > > ```
 > >
