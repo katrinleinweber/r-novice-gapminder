@@ -19,8 +19,6 @@ source: Rmd
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
 knitr_fig_path("04-")
-# Silently load in the data so the rest of the lesson works
-gapminder <- read.csv("data/gapminder_data.csv", header = TRUE)
 ```
 
 Plotting our data is one of the best ways to
@@ -51,6 +49,7 @@ Inkscape.
 Let's start off with an example:
 
 ```{r lifeExp-vs-gdpPercap-scatter, message=FALSE}
+gapminder <- read.csv("data/gapminder_data.csv", header = TRUE)
 library("ggplot2")
 ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
   geom_point()
