@@ -1,28 +1,21 @@
 ---
 title: "Introduction to R and RStudio"
-teaching: 45
-exercises: 10
+teaching: 15
+exercises: 5
 questions:
+- "What is R?"
 - "How to find your way around RStudio?"
-- "How to interact with R?"
-- "How to manage your environment?"
-- "How to install packages?"
+- "How to manage projects?"
+- "How can I do easy calculus?"
+- "What are variables?"
+- "What are packages"
 objectives:
+- "Justify R"
+- "Understand the scope of R"
 - "Describe the purpose and use of each pane in the RStudio IDE"
-- "Locate buttons and options in the RStudio IDE"
-- "Define a variable"
-- "Assign data to a variable"
-- "Manage a workspace in an interactive R session"
-- "Use mathematical and comparison operators"
-- "Call functions"
-- "Manage packages"
-keypoints:
-- "Use RStudio to write and run R programs."
-- "R has the usual arithmetic operators and mathematical functions."
-- "Use `<-` to assign values to variables."
-- "Use `ls()` to list the variables in a program."
-- "Use `rm()` to delete objects in a program."
-- "Use `install.packages()` to install packages (libraries)."
+- "Create a project"
+- "Use R as a calculator"
+- "Understand packages"
 source: Rmd
 ---
 
@@ -31,18 +24,13 @@ source("../bin/chunk-options.R")
 knitr_fig_path("01-")
 ```
 
-
 ## Motivation
 
-Science is a multi-step process: once you've designed an experiment and collected
-data, the real fun begins! This lesson will teach you how to start this process using
-R and RStudio. We will begin with raw data, perform exploratory analyses, and learn
-how to plot results graphically. This example starts with a dataset from
-[gapminder.org](https://www.gapminder.org) containing population information for many
-countries through time. Can you read the data into R? Can you plot the population for
-Senegal? Can you calculate the average income for countries on the continent of Asia?
-By the end of these lessons you will be able to do things like plot the populations
-for all of these countries in under a minute!
+Science relies on rigor, openness and transparency. This holds even more in data driven science. R is one out of several ways to ensure these pilars of proper science. To make use of R's capabilites we need to understand the foundations of R and how to efficiently make use of it.
+
+Throughout this lesson, we're going to teach you some of the fundamentals of
+the R language. To do so, we'll be using RStudio: a free, open source R integrated development environment. It provides a built in editor, works on all platforms (including on servers) and provides many advantages such as integration with version
+control and project management.
 
 ## Before Starting The Workshop
 
@@ -51,20 +39,37 @@ Please ensure you have the latest version of R and RStudio installed on your mac
 * [Download and install the latest version of R here](https://www.r-project.org/)
 * [Download and install RStudio here](https://www.rstudio.com/)
 
+## Introduction to R
+
+R is a language, a software and a philosophy. R is open, free, transparent and flexible. R is one of the most active (computational) languages/programmes in data science. R can be used for calculations and data visualisation, for image and sound manipulation, for internet and email scraping, to generate interactive reports, to write books and to generate presentations. 
+
+More formally, R is free software for statistics and visualisation. It is an open-source GNU project, based on S (introduced by John Chambers). While it is primarily accessible via command line, it is a high-level, interpreted, functional, object-oriented language.
+
+There are two imporant quotes that underpin many scopes in R:
+
+> Everything that is called in R is a function.
+
+> Everything that is created in R is an object.
+
+Much of your time in R will be spent in the R interactive
+console. This is where you will run all of your code, and can be a
+useful environment to try out ideas before adding them to a more elaborated script
+file.
+
+The first thing you will see in the R interactive session is a bunch
+of information, followed by a ">" and a blinking cursor. In many ways
+this is similar to the shell environment you learned about during the
+shell lessons: it operates on the same idea of a "Read, evaluate,
+print loop": you type in commands, R tries to execute them, and then
+returns a result.
+
 ## Introduction to RStudio
 
-Welcome to the R portion of the Software Carpentry workshop.
+Working just in a console appears a bit boring and less intuitive, no? When you encounter more extensive problems, you may want to have the ability to get an overview of what data there is, to visualise your data, to see a history of what you did to the data, or simply be able to re-run certain analysis steps, over and over again. This is when the console approach should give way to an IDE approach. IDE stands for integrated development envirnoment, or simply a graphical user interface that boosts the possibilities to interact with R.
 
-Throughout this lesson, we're going to teach you some of the fundamentals of
-the R language as well as some best practices for organizing code for
-scientific projects that will make your life easier.
+RStudio is available for almost all computer platforms. It integrates all relevant tools for R in one programme. It supports multiple projects, versioning tools (like git), interactive grapics and generating many different types of documents.
 
-We'll be using RStudio: a free, open source R integrated development
-environment. It provides a built in editor, works on all platforms (including
-on servers) and provides many advantages such as integration with version
-control and project management.
-
-
+RStudio offers syntax highlighting (indicating for example parentheses pairs, function names, characters versus numbers, etc.), auto completion of object and function names, and auto indention (indentation of code after line breaks at the right position).
 
 **Basic layout**
 
@@ -81,6 +86,16 @@ in the top left.
 
 ![RStudio layout with .R file open](../fig/01-rstudio-script.png)
 
+## A few "magic keys"
+
+RStudio is built to make working with R very efficient. It minimises the amount of time you have to take your hands off the keyboard, for example to grab your mouse. There are a few "magic keys" your will rely on heavily: <kbd>Tab</kbd>, <kbd>Up</kbd>, <kbd>Down</kbd>, <kbd>Ctrl</kbd>, <kbd>Shift</kbd> and <kbd>Return</kbd>. Combinations of those make life easy and efficients, once you have learnt getting used to them.
+
+* <kbd>Ctrl</kbd>+ <kbd>Return</kbd>  (or <kbd>&#8984;</kbd>+<kbd>Return</kbd> on OS X) runs a line (or function) of code. If you mark several lines of code, before, this selected code section will be run.
+* <kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>Return</kbd> runs an entire script at once.
+* <kbd>Ctrl</kbd>+<kbd>1</kbd> moves the cursor to the script window.
+* <kbd>Ctrl</kbd>+<kbd>2</kbd> moves the cursor to the console window.
+
+RStudio offers you great flexibility in running code from within the editor window. Apart from the key combinations,  there are buttons and menu choices.
 
 ## Work flow within RStudio
 There are two main ways one can work within RStudio.
@@ -95,38 +110,38 @@ interactive R console.
    * This is a great way to start; all your code is saved for later
    * You will be able to run the file you create from within RStudio
    or using R's `source()`  function.
+   
+## Projects in RStudio
 
-> ## Tip: Running segments of your code
+When working on different projects, things can easily get messy. RStudio offers so called projects. Projects are self consistent R sessions, including all objects, work spaces, scripts and histories. They support consistent and efficient work, and quick switches between different projects. 
+
+You can initialise a new project via: Menu File > New Project > New Directory > New Project. 
+
+> ## Hands-on part 1
 >
-> RStudio offers you great flexibility in running code from within the editor
-> window. There are buttons, menu choices, and keyboard shortcuts. To run the
-> current line, you can 
-> 1. click on the `Run` button above the editor panel, or 
-> 2. select "Run Lines" from the "Code" menu, or 
-> 3. hit <kbd>Ctrl</kbd>+<kbd>Return</kbd> in Windows or Linux 
-> or <kbd>&#8984;</kbd>+<kbd>Return</kbd> on OS X.
-> (This shortcut can also be seen by hovering
-> the mouse over the button). To run a block of code, select it and then `Run`.
-> If you have modified a line of code within a block of code you have just run,
-> there is no need to reselect the section and `Run`, you can use the next button
-> along, `Re-run the previous region`. This will run the previous code block
-> including the modifications you have made.
-{: .callout}
-
-## Introduction to R
-
-Much of your time in R will be spent in the R interactive
-console. This is where you will run all of your code, and can be a
-useful environment to try out ideas before adding them to an R script
-file. This console in RStudio is the same as the one you would get if
-you typed in `R` in your command-line environment.
-
-The first thing you will see in the R interactive session is a bunch
-of information, followed by a ">" and a blinking cursor. In many ways
-this is similar to the shell environment you learned about during the
-shell lessons: it operates on the same idea of a "Read, evaluate,
-print loop": you type in commands, R tries to execute them, and then
-returns a result.
+> Create a new project "R_intro" in your favourable directory for new 
+> projects. Create therein a new empty R script.
+> 
+> Think of challenges in data-driven scientific projects. What can be  
+> problematic? What are strategies to avoid such pitfalls?
+>
+> > ## Solution to challenge 1a
+> >
+> > Menu File > New Project > New Directory > New Project
+> >
+> > ## Suggestions to challenge 1b
+> >
+> > Separate data from scripts and output. 
+> >
+> > Separate raw data from cleaned data. Treat raw data read only. 
+> > Treat cleaned data as reproducible.
+> >
+> > Use a version control system
+> >
+> > Make your workflows and decisions understandable and reproducible.
+> > Use comments to briefly tell others (and yourself) why you do what.
+> {: .solution}
+{: .challenge}
 
 ## Using R as a calculator
 
@@ -173,40 +188,15 @@ prompt.
 When using R as a calculator, the order of operations is the same as you
 would have learned back in school.
 
-From highest to lowest precedence:
-
- * Parentheses: `(`, `)`
- * Exponents: `^` or `**`
- * Divide: `/`
- * Multiply: `*`
- * Add: `+`
- * Subtract: `-`
-
 ```{r}
 3 + 5 * 2
 ```
 
-Use parentheses to group operations in order to force the order of
-evaluation if it differs from the default, or to make clear what you
-intend.
+versus:
 
 ```{r}
 (3 + 5) * 2
 ```
-
-This can get unwieldy when not needed, but  clarifies your intentions.
-Remember that others may later read your code.
-
-```{r, eval=FALSE}
-(3 + (5 * (2 ^ 2))) # hard to read
-3 + 5 * 2 ^ 2       # clear, if you remember the rules
-3 + 5 * (2 ^ 2)     # if you forget some rules, this might help
-```
-
-
-The text after each line of code is called a
-"comment". Anything that follows after the hash (or octothorpe) symbol
-`#` is ignored by R when it executes code.
 
 Really small or large numbers get a scientific notation:
 
@@ -214,8 +204,7 @@ Really small or large numbers get a scientific notation:
 2/10000
 ```
 
-Which is shorthand for "multiplied by `10^XX`". So `2e-4`
-is shorthand for `2 * 10^(-4)`.
+Which is shorthand for "multiplied by `10^XX`". So `2e-4` is shorthand for `2 * 10^(-4)`.
 
 You can write numbers in scientific notation too:
 
@@ -239,10 +228,6 @@ log(1)  # natural logarithm
 ```
 
 ```{r}
-log10(10) # base-10 logarithm
-```
-
-```{r}
 exp(0.5) # e^(1/2)
 ```
 
@@ -250,64 +235,11 @@ Don't worry about trying to remember every function in R. You
 can simply look them up on Google, or if you can remember the
 start of the function's name, use the tab completion in RStudio.
 
-This is one advantage that RStudio has over R on its own, it
-has auto-completion abilities that allow you to more easily
-look up functions, their arguments, and the values that they
-take.
-
 Typing a `?` before the name of a command will open the help page
 for that command. As well as providing a detailed description of
 the command and how it works, scrolling to the bottom of the
 help page will usually show a collection of code examples which
 illustrate command usage. We'll go through an example later.
-
-## Comparing things
-
-We can also do comparison in R:
-
-```{r}
-1 == 1  # equality (note two equals signs, read as "is equal to")
-```
-
-```{r}
-1 != 2  # inequality (read as "is not equal to")
-```
-
-```{r}
-1 < 2  # less than
-```
-
-```{r}
-1 <= 1  # less than or equal to
-```
-
-```{r}
-1 > 0  # greater than
-```
-
-```{r}
-1 >= -9 # greater than or equal to
-```
-
-> ## Tip: Comparing Numbers
->
-> A word of warning about comparing numbers: you should
-> never use `==` to compare two numbers unless they are
-> integers (a data type which can specifically represent
-> only whole numbers).
->
-> Computers may only represent decimal numbers with a
-> certain degree of precision, so two numbers which look
-> the same when printed out by R, may actually have
-> different underlying representations and therefore be
-> different by a small margin of error (called Machine
-> numeric tolerance).
->
-> Instead you should use the `all.equal` function.
->
-> Further reading: [http://floating-point-gui.de/](http://floating-point-gui.de/)
->
-{: .callout}
 
 ## Variables and assignment
 
@@ -316,51 +248,6 @@ We can store values in variables using the assignment operator `<-`, like this:
 ```{r}
 x <- 1/40
 ```
-
-Notice that assignment does not print a value. Instead, we stored it for later
-in something called a **variable**. `x` now contains the **value** `0.025`:
-
-```{r}
-x
-```
-
-More precisely, the stored value is a *decimal approximation* of
-this fraction called a [floating point number](http://en.wikipedia.org/wiki/Floating_point).
-
-Look for the `Environment` tab in one of the panes of RStudio, and you will see that `x` and its value
-have appeared. Our variable `x` can be used in place of a number in any calculation that expects a number:
-
-```{r}
-log(x)
-```
-
-Notice also that variables can be reassigned:
-
-```{r}
-x <- 100
-```
-
-`x` used to contain the value 0.025 and and now it has the value 100.
-
-Assignment values can contain the variable being assigned to:
-
-```{r}
-x <- x + 1 #notice how RStudio updates its description of x on the top right tab
-y <- x * 2
-```
-
-The right hand side of the assignment can be any valid R expression.
-The right hand side is *fully evaluated* before the assignment occurs.
-
-Variable names can contain letters, numbers, underscores and periods. They
-cannot start with a number nor contain spaces at all. Different people use
-different conventions for long variable names, these include
-
-  * periods.between.words
-  * underscores\_between_words
-  * camelCaseToSeparateWords
-
-What you use is up to you, but **be consistent**.
 
 It is also possible to use the `=` operator for assignment:
 
@@ -373,7 +260,29 @@ But this is much less common among R users.  The most important thing is to
 where it is less confusing to use `<-` than `=`, and it is the most common
 symbol used in the community. So the recommendation is to use `<-`.
 
-> ## Challenge 1
+Notice that assignment does not print a value. Instead, we stored it for later
+in something called a **variable**. `x` now contains the **value** `0.025`:
+
+```{r}
+x
+```
+
+Look for the `Environment` tab in one of the panes of RStudio, and you will see that `x` and its value have appeared. Our variable `x` can be used in place. Assignment values can also contain the variable being assigned to:
+
+```{r}
+x <- x + 1 # notice how RStudio updates its description of x on the top right tab
+y <- x * 2
+```
+
+Variable names can contain letters, numbers, underscores and periods. They cannot start with a number nor contain spaces at all. Different people use different conventions for long variable names, these include
+
+  * periods.between.words
+  * underscores\_between_words
+  * camelCaseToSeparateWords
+
+What you use is up to you, but **be consistent**.
+
+> ## Challenge 2
 >
 > Which of the following are valid R variable names?
 > ```{r, eval=FALSE}
@@ -387,7 +296,7 @@ symbol used in the community. So the recommendation is to use `<-`.
 > celsius2kelvin
 > ```
 >
-> > ## Solution to challenge 1
+> > ## Solution to challenge 2
 > >
 > > The following can be used as R variables:
 > > ```{r ch1pt1-sol, eval=FALSE}
@@ -410,24 +319,6 @@ symbol used in the community. So the recommendation is to use `<-`.
 > > ```
 > {: .solution}
 {: .challenge}
-
-## Vectorization
-
-One final thing to be aware of is that R is *vectorized*, meaning that
-variables and functions can have vectors as values. In contrast to physics and
-mathematics, a vector in R describes a set of values in a certain order of the 
-same data type. For example
-
-```{r}
-1:5
-2^(1:5)
-x <- 1:5
-2^x
-```
-
-This is incredibly powerful; we will discuss this further in an
-upcoming lesson.
-
 
 ## Managing your environment
 
@@ -483,24 +374,13 @@ If instead we use `<-`, there will be unintended side effects, or you may get an
 rm(list <- ls())
 ```
 
-> ## Tip: Warnings vs. Errors
->
-> Pay attention when R does something unexpected! Errors, like above,
-> are thrown when R cannot proceed with a calculation. Warnings on the
-> other hand usually mean that the function has run, but it probably
-> hasn't worked as expected.
->
-> In both cases, the message that R prints out usually give you clues
-> how to fix a problem.
->
-{: .callout}
-
 ## R Packages
 
-It is possible to add functions to R by writing a package, or by
-obtaining a package written by someone else. As of this writing, there
-are over 10,000 packages available on CRAN (the comprehensive R archive
-network). R and RStudio have functionality for managing packages:
+It is possible to add functions to R by using additional packages. As of this writing, there are over 10,000 packages available on CRAN (the comprehensive R archive network).
+
+Functions are contained in packages, and packages are contained in your library. Thus, you load a package from your library to make the functions therein available.
+
+R and RStudio have functionalities for managing packages:
 
 * You can see what packages are installed by typing
   `installed.packages()`
@@ -510,9 +390,9 @@ network). R and RStudio have functionality for managing packages:
 * You can remove a package with `remove.packages("packagename")`
 * You can make a package available for use with `library(packagename)`
 
-> ## Challenge 2
+> ## Challenge 3
 >
-> What will be the value of each  variable  after each
+> What will be the value of each variable after each
 > statement in the following program?
 >
 > ```{r, eval=FALSE}
@@ -522,7 +402,7 @@ network). R and RStudio have functionality for managing packages:
 > age <- age - 20
 > ```
 >
-> > ## Solution to challenge 2
+> > ## Solution to challenge 3
 > >
 > > ```{r ch2pt1-sol}
 > > mass <- 47.5
@@ -545,22 +425,6 @@ network). R and RStudio have functionality for managing packages:
 > > ```
 > > This will subtract 20 from the existing value of `r age + 20 ` to give a new value
 > > of `r age` to the variable age.
-> {: .solution}
-{: .challenge}
-
-
-> ## Challenge 3
->
-> Run the code from the previous challenge, and write a command to
-> compare mass to age. Is mass larger than age?
->
-> > ## Solution to challenge 3
-> >
-> > One way of answering this question in R is to use the `>` to set up the following:
-> > ```{r ch3-sol}
-> > mass > age
-> >```
-> > This should yield a boolean value of TRUE since `r mass` is greater than `r age`.
 > {: .solution}
 {: .challenge}
 
